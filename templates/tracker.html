@@ -1,0 +1,52 @@
+"""
+{% extends "base.html" %}
+
+{% block title %}Track Habits - Habit Tracker{% endblock %}
+
+{% block content %}
+<div class="tracker-section">
+    <div class="container">
+        <div class="tracker-header">
+            <h1>Hello, {{ user_name }}! 👋</h1>
+            <p>Track your daily habits and build a better routine</p>
+            <div class="progress-summary">
+                <span class="completed-count">{{ completed|length }}</span>
+                <span class="total-count">/ {{ habits|length }}</span>
+                <span class="progress-text">habits completed</span>
+            </div>
+        </div>
+        
+        <div class="habits-grid">
+            {% for habit in habits %}
+            <div class="habit-card {% if habit in completed %}completed{% endif %}">
+                <form method="POST" action="{{ url_for('toggle_habit') }}" class="habit-form">
+                    <input type="hidden" name="habit" value="{{ habit }}">
+                    <button type="submit" class="habit-button">
+                        <div class="habit-icon">
+                            {% if habit in completed %}
+                                <i class="fas fa-check-circle"></i>
+                            {% else %}
+                                <i class="far fa-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div class="habit-text">{{ habit }}</div>
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="tracker-actions">
+            <a href="{{ url_for('summary') }}" class="btn btn-primary summary-btn">
+                <i class="fas fa-chart-bar"></i>
+                View Summary
+            </a>
+            <a href="{{ url_for('reset') }}" class="btn btn-outline-secondary reset-btn">
+                <i class="fas fa-refresh"></i>
+                Start Over
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+"""
